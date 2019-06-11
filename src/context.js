@@ -64,7 +64,7 @@ class RoomProvider extends React.Component {
 
     handleChange = event => {
         const target = event.target;
-        const value = event.type === 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         //const type = event.target.type;
         const name = event.target.name;
         
@@ -96,6 +96,21 @@ class RoomProvider extends React.Component {
             return room.price <= price;
         })
         
+        tempRooms = tempRooms.filter(room => {
+            return room.size >= minSize && room.size <= maxSize;
+        })
+
+        if(breakfast){
+            tempRooms = tempRooms.filter(room => {
+                return room.breakfast === true;
+            })
+        }
+
+        if(pets){
+            tempRooms = tempRooms.filter(room => {
+                return room.pets === true;
+            })
+        }
 
         this.setState({
             sortedRooms: tempRooms
